@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#255c45">
+  <title>Taskroom — A little space to get things done</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Taskroom home"><span class="brand-mark" aria-hidden="true">✓</span> taskroom<span class="brand-dot">.</span></a>
+    <div id="account" hidden><span id="user-name"></span><button id="logout" class="button subtle">Log out <span aria-hidden="true">↗</span></button></div>
+    <span id="header-note" class="muted">Less noise. More progress.</span>
+  </header>
+
+  <main id="auth-view" class="auth-layout" hidden>
+    <section class="intro">
+      <p class="eyebrow"><span class="tiny-dot"></span> A FRESH SPACE FOR YOUR IDEAS</p>
+      <h1>Big plans. <br>Small steps. <br><em>You've got this.</em></h1>
+      <p class="intro-copy">Make a little room for what matters. Organize your tasks, find your focus, and move your day forward.</p>
+      <div class="sample-card" aria-hidden="true"><span class="sample-check">✓</span><div><strong>Make space for a good day</strong><small>One thing at a time.</small></div><span class="sample-star">✳</span></div>
+      <div class="intro-footer"><span class="line"></span> SIMPLE BY DESIGN. YOURS BY DEFAULT.</div>
+    </section>
+    <section class="auth-card" aria-labelledby="auth-title">
+      <div class="tabs" aria-label="Account access"><button id="login-tab" class="active" type="button" aria-pressed="true">Log in</button><button id="signup-tab" type="button" aria-pressed="false">Sign up</button></div>
+      <h2 id="auth-title">Welcome back.</h2>
+      <p id="auth-subtitle" class="muted">Your next small step starts here.</p>
+      <form id="auth-form">
+        <div id="name-field" hidden><label for="name">Your name</label><input id="name" name="name" autocomplete="name" maxlength="80" placeholder="Alex Morgan"></div>
+        <label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com">
+        <label for="password">Password</label><div class="password-wrap"><input id="password" name="password" type="password" autocomplete="current-password" required maxlength="128" placeholder="Your password"><button id="show-password" type="button" aria-label="Show password">Show</button></div>
+        <p id="password-help" class="field-note" hidden>Use at least 8 characters.</p>
+        <p id="auth-error" class="error" role="alert" hidden></p>
+        <button id="auth-submit" class="button primary wide" type="submit">Log in <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="privacy-note"><span aria-hidden="true">◇</span> A private space. Only you can see your tasks.</p>
+    </section>
+  </main>
+
+  <main id="workspace" class="workspace" hidden>
+    <section class="workspace-heading"><div><p class="eyebrow">YOUR PERSONAL WORKSPACE</p><h1>A little progress, every day<span class="brand-dot">.</span></h1><p class="muted">Clear your head. Make a plan. Take the next step.</p></div><button id="new-task" class="button primary"><span aria-hidden="true">＋</span> New task</button></section>
+    <section class="stats" aria-label="Task summary"><div><span class="stat-label">TOTAL TASKS</span><strong id="total-count">0</strong><small>Ideas into action</small></div><div><span class="stat-label">IN PROGRESS</span><strong id="doing-count">0</strong><small>Keep the momentum</small></div><div><span class="stat-label">COMPLETED</span><strong id="done-count">0</strong><small>Small wins add up</small></div></section>
+    <section class="task-section" aria-labelledby="tasks-title">
+      <div class="task-section-heading"><h2 id="tasks-title">Your tasks <span id="task-count" class="count-pill">0</span></h2><label class="search-wrap"><span aria-hidden="true">⌕</span><span class="sr-only">Search tasks</span><input id="search" type="search" placeholder="Search tasks…" maxlength="120"></label></div>
+      <div class="filters" role="group" aria-label="Filter tasks"><button data-filter="all" class="active" aria-pressed="true">All tasks</button><button data-filter="todo" aria-pressed="false">To do</button><button data-filter="doing" aria-pressed="false">In progress</button><button data-filter="done" aria-pressed="false">Completed</button></div>
+      <p id="tasks-error" class="error" role="alert" hidden></p><button id="retry" class="button subtle" hidden>Try again</button>
+      <div id="task-list" class="task-list" aria-live="polite"></div>
+      <div id="empty" class="empty" hidden><span class="empty-icon" aria-hidden="true">☷</span><h3 id="empty-title">A fresh page. A clear mind.</h3><p id="empty-copy">Add your first task and make room for progress.</p><button id="empty-add" class="button secondary">Create your first task <span aria-hidden="true">→</span></button></div>
+    </section>
+    <footer class="workspace-footer">A little more organized. A little more you. <span>MADE FOR YOUR EVERYDAY</span></footer>
+  </main>
+  <p id="loading" class="loading" role="status">Getting your space ready…</p>
+  <dialog id="task-dialog" aria-labelledby="dialog-title">
+    <form id="task-form"><div class="dialog-heading"><h2 id="dialog-title">Make a little plan.</h2><button type="button" id="close-dialog" class="icon-button" aria-label="Close task form">×</button></div><p class="muted">Every good thing starts with a small step.</p>
+      <label for="task-title">Task title</label><input id="task-title" required maxlength="120" placeholder="What would you like to do?">
+      <label for="task-description">Description <span class="muted">(optional)</span></label><textarea id="task-description" maxlength="2000" rows="4" placeholder="A few details to help you get started…"></textarea>
+      <label for="task-status">Status</label><select id="task-status"><option value="todo">To do</option><option value="doing">In progress</option><option value="done">Completed</option></select>
+      <p id="task-error" class="error" role="alert" hidden></p><div class="dialog-actions"><button type="button" id="cancel-task" class="button subtle">Cancel</button><button id="save-task" class="button primary" type="submit">Create task</button></div>
+    </form>
+  </dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title"><h2 id="delete-title">Delete this task?</h2><p class="muted">This will permanently remove <strong id="delete-name"></strong>.</p><p id="delete-error" class="error" role="alert" hidden></p><div class="dialog-actions"><button id="cancel-delete" class="button subtle">Keep task</button><button id="confirm-delete" class="button danger">Delete task</button></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "name": "taskroom",
+  "version": "1.0.0",
+  "description": "A simple task manager with SQLite and session authentication",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test test/api.test.js",
+    "test:e2e": "playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiha1/crud-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/kaiha1/crud-app/issues"
+  },
+  "homepage": "https://github.com/kaiha1/crud-app#readme",
+  "dependencies": {
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  }
+}
